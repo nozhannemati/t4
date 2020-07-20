@@ -25,8 +25,16 @@ l5.grid(row=1, column=3, sticky=tk.S+tk.N)
 l6 = tk.Label(root, text='L6', bg='orange',font=('times', 20))
 l6.grid(row=2, column=3, sticky=tk.S+tk.N)
 
+tk = tk.toplevel(root)
 
+o1 = tk.button(tp, text='operators', command=op1)
+o1.grid(row=0, column=0)
 
+o2 = tk.button(tp, text='operators', command=op2)
+o2.grid(row=0, column=1)
+
+o3 = tk.button(tp, text='operators', command=op3)
+o3.grid(row=0, column=2)
 
 root.mainloop()
 
