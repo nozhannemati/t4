@@ -17,21 +17,49 @@ def turn():
 
     e1.config(text='Your Turn:' + str(numbers[-1]))
 
+    e2.config(text='left:' + str(len(numbers)-1))
+
+    line = '{},{},{}\n'.format(numbers[-1],
+                              d.strftime("%-H:%-M:%-S"),
+                              d.strftime('%-m:%-M:%-S'))
+
+
+    with open ('turns.csv','a') as file:
+        file.write(line)
+
+
+def append_csv(numbers, operators):
+    d = datetime.now()
+    line = '{},{},{},numbers{}\n'.format(numbers[-1],
+                               d.strftime("%-H:%-M:%-S"),
+                               d.strftime('%-m:%-M:%-S'),
+                               operator)
+
+
+
+
+
+
 
 def op1():
     if numbers:
-      Lo1.config(text=numbers.pop(0))
+      number = numbers.pop(0)
+      Lo1.config(text=number)
+      append_csv(numbers, 1)
 
 
 def op2():
    if numbers:
-     Lo2.config(text=numbers.pop(0))
-
+     number = numbers(0)
+     Lo2.config(text=number)
+     append_csv(numbers, 2)
 
 def op3():
-     if numbers:
-      Lo3.config(text=numbers.pop(0))
 
+    if numbers:
+      number = numbers.pop(0)
+      Lo3.config(text=number)
+      append_csv(numbers, 3)
 
 root = tk.Tk()
 n = -1
@@ -49,8 +77,11 @@ c1.grid(row=2, column=0)
 e1 = tk.Label(root, text='')
 e1.grid(row=3, column=0)
 
+e2 = tk.Label(root, text='')
+e2.grid(row=4, column=0)
+
 b1 = tk.Button(root, text='Get Turn!', command=turn)
-b1.grid(row=4, column=0)
+b1.grid(row=5, column=0)
 
 tp = tk.Toplevel(root)
 
@@ -69,5 +100,6 @@ Lo2 = tk.Label(tp, text='--')
 Lo2.grid(row=1, column=1)
 Lo3 = tk.Label(tp, text='--')
 Lo3.grid(row=1, column=2)
+
 
 root.mainloop()
