@@ -1,8 +1,13 @@
 import tkinter as tk
-root = tk.Tk()
 
 def stop():
     pass
+
+root = tk.Tk()
+
+timer = {'left':1200,
+         'right':1200}
+
 
 
 
@@ -12,26 +17,26 @@ tk.Label(root,
 tk.Label(root,
          text='right player').grid(row=0, column=1)
 
-L.timer = tk.StringVar()
-L.timer.set('20:00')
+L_timer = tk.StringVar()
+L_timer.set('20:00')
 tk.Label(root,
-         textvarible='l_timer').grid(row=0, column=0)
-R.timer = tk.StringVar()
-R.timer.set('20:00')
+         textvariable='L_timer').grid(row=1, column=0)
+R_timer = tk.StringVar()
+R_timer.set('20:00')
 tk.Label(root,
-         textvarible='r_timer').grid(row=1, column=1)
+         textvariable='r_timer').grid(row=1,column=1)
 
-tk.Button(root, text='start').grid(row=1, clumn=2)
+tk.Button(root, text='start').grid(row=3,column=0,columnspan=2)
 
-tk.Button(root, text='cancel').grid(row=4, culomn=0)
+tk.Button(root, text='cancel',command= root.destroy).grid(row=4, column=0,columnspan=2)
 
 tk.Button(root,
           text='stop',
-          commmand=stop).grid(row=2, column=0)
+          command=stop).grid(row=2, column=1)
 
 tk.Button(root,
           text='stop',
-          commmand=stop).grid(row=2, column=2)
+          command=stop).grid(row=2, column=2)
 
 
 root.mainloop()
