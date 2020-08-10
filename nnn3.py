@@ -19,10 +19,11 @@ def start(t):
     while True:
         sleep(1)
         if flag:
-            timer['right']  -=1
+            timer['right'] -= 1
             m, s = divmod(timer['right'], 60)
 
             R_timer.set('%02d:%02d' %(m, s))
+
         else:
             timer['left'] -=1
             m, s = divmod(timer['left'], 60)
