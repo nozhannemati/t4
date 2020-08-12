@@ -4,91 +4,84 @@ from time import sleep
 
 
 def stop(side):
-    global flag
+    global Left
     if side == 'left':
-        flag = True
+        Left = True
     else:
-        flag = False
-
-
-
-
+        Left = False
 
 
 def start(t):
     while True:
+        if timer['left'] == 0 or timer['right'] == 0:
+            break
         sleep(1)
-        if flag:
+        if Left:
             timer['right'] -= 1
             m, s = divmod(timer['right'], 60)
 
-            R_timer.set('%02d:%02d' %(m, s))
-
+            r_timer.set('%02d:%02d' % (m, s))
         else:
-            timer['left'] -=1
+            timer['left'] -= 1
             m, s = divmod(timer['left'], 60)
 
-            L_timer.set('%02d:%02d' % (m, s))
+            l_timer.set('%02d:%02d' % (m, s))
 
 
-
-
+l_cnf = {'bg': '#7C4DFF', 'fg': '#FFD600'}
+tk_cnf = {'bg': l_cnf['bg']}
 root = tk.Tk()
 
-
-
-
-timer = {'left':1200,
-         'right':1200}
-
-
-flag = False
-
+root.config(cnf=tk_cnf)
+timer = {'left': 10,
+         'right': 10}
+Left = False
 
 tk.Label(root,
-         text='left player').grid(row=0, column=0)
-
-
-
+         cnf=l_cnf,
+         text='Left Player',
+         font=('times', 20, 'italic')).grid(row=0, column=0)
 tk.Label(root,
-         text='right player').grid(row=0, column=1)
+         cnf=l_cnf,
+         text='Right Player',
+         font=('times', 20, 'italic')).grid(row=0, column=1)
+###################################################
 
-
-L_timer = tk.StringVar()
-L_timer.set('20:00')
-
-
+# Timer#############################################
+l_timer = tk.StringVar()
+l_timer.set('20:00')
 tk.Label(root,
-         textvariable=L_timer).grid(row=1, column=0)
-
-
-R_timer = tk.StringVar()
-R_timer.set('20:00')
-
-
-
+         cnf=l_cnf,
+         textvariable=l_timer,
+         font=('courier', 20)).grid(row=1, column=0)
+r_timer = tk.StringVar()
+r_timer.set('20:00')
 tk.Label(root,
-         textvariable=R_timer).grid(row=1,column=1)
+         cnf=l_cnf,
+         textvariable=r_timer,
+         font=('courier', 20)).grid(row=1, column=1)
+###################################################
 
-
-tk.Button(root, text='cancel',command= root.destroy).\
-    grid(row=4, column=0,columnspan=2)
-
-
-
+# Buttons #########################################
+b_cnf = {'bg': '#311B92',
+         'activebackground': '#7C4DFF',
+         'highlightbackground': '#7C4DFF'}
 tk.Button(root,
-          text='stop',
-          command=lambda:stop('left')).grid(row=2, column=0)
-
-
+          cnf=b_cnf,
+          text='Stop',
+          command=lambda: stop('left'),
+          font=('times', 20)).grid(row=2, column=0)
 tk.Button(root,
-          text='stop',
-          command=lambda:stop('right')).grid(row=2, column=1)
-
-
-
-
-
-thread1 = Thread(target=start, args=(0, ))
+          cnf=b_cnf,
+          text='Stop',
+          command=lambda: stop('right'),
+          font=('times', 20)).grid(row=2, column=1)
+tk.Button(root,
+          cnf=b_cnf,
+          text='Cancel',
+          command=root.destroy,
+          font=('times', 20)).grid(row=4, column=0, columnspan=2)
+###################################################
+thread1 = Thread(target=start, args=(0,))
 thread1.start()
 root.mainloop()
